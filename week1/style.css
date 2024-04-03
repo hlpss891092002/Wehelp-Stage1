@@ -235,7 +235,7 @@ main {
     display: block;
   }
   .hamburger-list {
-    display: flex;
+    display: none;
     flex-direction: column;
     margin: 0;
     position: absolute;
