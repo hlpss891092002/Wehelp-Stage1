@@ -1,20 +1,18 @@
 /* 共通 */
 body{
   font-size: 20px;
+
 }
 /* nav */
 nav{
   max-width: 100vw;
-  height: 15px;
   display: flex;
   align-items: center;
   padding: 10px;
-  /* justify-content: space-between; */
 }
 
 .web-title{
-  text-align: left;
-  text-wrap: nowrap;
+  text-wrap:nowrap;
 }
 .menu, .hamburger {
   display: flex;
@@ -26,15 +24,19 @@ nav{
   margin-left: 10px;
 }
 
-.hamburgerIcon{
-  justify-content: flex-end;
+.hamburger-list{
+  display: none;
+}
+
+.hamburger-icon{
+  display: none;
   max-width: 5%;
 }
 
 /* Welcome */
 .banner {
   margin: 0 0 20px 0;
-  background-color:tomato;
+  background-color:rgba(255, 120, 30, 0.466);
   width: 100%;
   height: 250px;
   display: flex;
@@ -58,6 +60,9 @@ main {
 
 /* small */
 
+.sm-box{
+  background-color:rgba(255, 195, 30, 0.4);
+}
 
 .sm-img {
   height: 50px;
@@ -66,6 +71,9 @@ main {
   flex: none;
   object-fit: cover;
   object-position: center;
+}
+.sm-box p{
+ margin: 0 0 0 5px;
 }
 
 /* big */
@@ -90,7 +98,7 @@ main {
   color: aliceblue;
   text-align: center;
   width: 100%;
-  background-color: rgba(255,0,0, 0.3);
+  background-color: rgba(255, 166, 0, 0.3);
   margin: 0;
 }
 
@@ -101,22 +109,17 @@ main {
   .mobile-mode{
     display: none;
   }
-  .hamburgerIcon{
-    display: none;
-  }
   .small-box {
     display: flex;
     width: 1200px;
   }
 
   .sm-box {
-    border: solid 1px ;
     flex: auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin: 0 20px 20px 0;
-    background-color: blue;
     height: 50px;
     max-width: 33.3% 
   }
@@ -168,7 +171,6 @@ main {
     text-align: left;
     align-items: end;
     width: 25%;
-    border: solid 1px;
     margin: 0 20px 20px 0;
 }
 }
@@ -229,44 +231,59 @@ main {
 }
 
 @media(max-width:600px) {
-    .pc-mode {
-        display: none;
-      }
-    
-      .ipad-mode {
-        display: none;
-      }
-    
-      .mobile-mode {
-        display: block;
-      }
-      .menu{
-        display: none;
-      }
+  .hamburger-icon{
+    display: block;
+  }
+  .hamburger-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    position: absolute;
+    background-color: cadetblue;
+    inset: 0 0 0 40%
+    }
+    .close-icon{
+      margin: 20px;
+      align-self: flex-end;
+      width: 30px;
+    }
+    .hamburger-item{
+      margin: 20px;
+    }
 
-      .hamburgerIcon {
-        display: block;
-      }
+  .pc-mode {
+      display: none;
+    }
 
-      .small-box{
-        display: flex;
-        flex-direction: column;
-      }
-      .sm-box{
-        margin-right: 0;
-        width: 100%;
-      }
-      .big-box {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-      }
-      .bg-box{
-        flex: auto;
-        margin-right: 0;
-        min-width: 100%;
+    .ipad-mode {
+      display: none;
+    }
 
-      }
+    .mobile-mode {
+      display: block;
+    }
+    .menu{
+      display: none;
+    }
+    .small-box{
+      display: flex;
+      flex-direction: column;
+    }
+    .sm-box{
+      margin-right: 0;
+      width: 100%;
+    }
+    .big-box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .bg-box{
+      flex: auto;
+      margin-right: 0;
+      min-width: 100%;
+
+    }
 
 }
 
