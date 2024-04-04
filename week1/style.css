@@ -1,6 +1,7 @@
 /* 共通 */
 body{
   font-size: 20px;
+  margin: 0;
 
 }
 /* nav */
@@ -42,6 +43,7 @@ nav{
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   font-size: 2em;
 }
 /* 主內容 */
