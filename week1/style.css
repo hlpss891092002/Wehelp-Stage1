@@ -104,7 +104,7 @@ main {
   margin: 0;
 }
 
-@media(max-width:1920px){
+@media(max-width: 1920px){
   .ipad-mode{
     display: none;
   }
@@ -114,6 +114,7 @@ main {
   .small-box {
     display: flex;
     max-width: 1200px;
+    justify-content: space-between ;
   }
 
   .sm-box {
@@ -123,7 +124,10 @@ main {
     align-items: center;
     margin: 0 20px 20px 0;
     height: 50px;
-    max-width: 33.3% 
+    max-width: 50%; 
+  }
+  #smb-1{
+    max-width: 380px;
   }
   #smb-3{
     margin-right: 0;
