@@ -75,11 +75,11 @@
  "Leslie":"I'm at home near Xiaobitan station.",
  "Vivian":"I'm at Xindian station waiting for you."
  };
- findAndPrint(messages, "Wanlong"); // print Mary
- findAndPrint(messages, "Songshan"); // print Copper
- findAndPrint(messages, "Qizhang"); // print Leslie
- findAndPrint(messages, "Ximen"); // print Bob
- findAndPrint(messages, "Xindian City Hall"); // print Vivian
+//  findAndPrint(messages, "Wanlong"); // print Mary
+//  findAndPrint(messages, "Songshan"); // print Copper
+//  findAndPrint(messages, "Qizhang"); // print Leslie
+//  findAndPrint(messages, "Ximen"); // print Bob
+//  findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
  
  //task2
@@ -163,19 +163,69 @@ function orderHour (name){
  orderHour(theChosenOne)
  }
 
- book(consultants, 15, 1, "price"); // Jenny
- book(consultants, 11, 2, "price"); // Jenny
- book(consultants, 10, 2, "price"); // John
- book(consultants, 20, 2, "rate"); // John
- book(consultants, 11, 1, "rate"); // Bob
- book(consultants, 11, 2, "rate"); // No Service
- book(consultants, 14, 3, "price"); // John
+//  book(consultants, 15, 1, "price"); // Jenny
+//  book(consultants, 11, 2, "price"); // Jenny
+//  book(consultants, 10, 2, "price"); // John
+//  book(consultants, 20, 2, "rate"); // John
+//  book(consultants, 11, 1, "rate"); // Bob
+//  book(consultants, 11, 2, "rate"); // No Service
+//  book(consultants, 14, 3, "price"); // John
 
 //  task3 
  function func(...data){
  // your code here
+ let nameList = [...data]
+let sameLetter = []
+let differName = []
+let midNameArray = sliceWords()
+
+function sliceWords(){
+   let  midNameArray1 =nameList.map((ele)=>{
+    if(ele.length < 3){
+      return [...ele.slice(1,2)]
+    }else{
+      return [...ele.slice(1,ele.length-1)]
+    }
+ })
+    return(midNameArray1)
+}
+
+function figureOutSame(){
+ for(let i = 0; i < midNameArray.length; i++){
+  for(let j = midNameArray.length-1; j>= 0 ; j--){
+    if(i === j ){
+      continue
+    }
+      for(letter of midNameArray[i]){   
+      if(midNameArray[j].includes(letter)){
+        sameLetter.push(nameList[j])
+      }
+    } 
+  }
  }
- func("彭大牆", "陳王明雅", "吳明"); // print 彭大牆
+}
+
+function printResult(){
+ for(names of nameList){
+  // console.log(names)
+  // console.log(!sameLetter.includes(names))
+    if(!sameLetter.includes(names)){
+      differName.push(names)
+    }
+  } 
+  if(differName.length === 0){
+    console.log("沒有")
+  }else{
+    console.log(...differName)
+  }
+
+}
+figureOutSame()
+printResult()
+
+}
+
+func("彭大牆", "陳王明雅", "吳明"); // print 彭大牆
 func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花"); // print 林花花
 func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有
 func("郭宣雅", "夏曼藍波安", "郭宣恆"); // print 夏曼藍波安
