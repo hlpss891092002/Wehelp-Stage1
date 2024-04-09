@@ -75,11 +75,11 @@
  "Leslie":"I'm at home near Xiaobitan station.",
  "Vivian":"I'm at Xindian station waiting for you."
  };
-//  findAndPrint(messages, "Wanlong"); // print Mary
-//  findAndPrint(messages, "Songshan"); // print Copper
-//  findAndPrint(messages, "Qizhang"); // print Leslie
-//  findAndPrint(messages, "Ximen"); // print Bob
-//  findAndPrint(messages, "Xindian City Hall"); // print Vivian
+ findAndPrint(messages, "Wanlong"); // print Mary
+ findAndPrint(messages, "Songshan"); // print Copper
+ findAndPrint(messages, "Qizhang"); // print Leslie
+ findAndPrint(messages, "Ximen"); // print Bob
+ findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
  
  //task2
@@ -163,13 +163,13 @@ function orderHour (name){
  orderHour(theChosenOne)
  }
 
-//  book(consultants, 15, 1, "price"); // Jenny
-//  book(consultants, 11, 2, "price"); // Jenny
-//  book(consultants, 10, 2, "price"); // John
-//  book(consultants, 20, 2, "rate"); // John
-//  book(consultants, 11, 1, "rate"); // Bob
-//  book(consultants, 11, 2, "rate"); // No Service
-//  book(consultants, 14, 3, "price"); // John
+ book(consultants, 15, 1, "price"); // Jenny
+ book(consultants, 11, 2, "price"); // Jenny
+ book(consultants, 10, 2, "price"); // John
+ book(consultants, 20, 2, "rate"); // John
+ book(consultants, 11, 1, "rate"); // Bob
+ book(consultants, 11, 2, "rate"); // No Service
+ book(consultants, 14, 3, "price"); // John
 
 //  task3 
  function func(...data){
@@ -233,7 +233,26 @@ func("郭宣雅", "夏曼藍波安", "郭宣恆"); // print 夏曼藍波安
 //task4
 function getNumber(index){
  // your code here
+ let array =[]
+ let num = 0
+ for(let i = 0; i <= index+1; i++){
+    if(i === 0){
+      num += 0
+      array.push(num)
+    }else if(i % 3 === 1){
+      num += 4
+      array.push(num)
+    }else if(i % 3 === 2){
+      num += 4
+      array.push(num)   
+    }else if(i % 3 === 0){
+      num -= 1
+      array.push(num)
+    }
+  }
+  console.log(array[index])
  }
+
  getNumber(1); // print 4
  getNumber(5); // print 15
  getNumber(10); // print 25
@@ -242,7 +261,18 @@ function getNumber(index){
 //  task5
 function find(spaces, stat, n){
  // your code here
+ let min = n
+ let carNum = -1
+ for(let i = 0; i < spaces.length; i++){
+  let menus = spaces[i] - n
+  if(menus < n && menus >= 0 && stat[i] === 1){
+
+     min = menus
+     carNum = i
+  }
  }
+ console.log(carNum)
+}
  find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2); // print 5
  find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4); // print-1
  find([4, 6, 5, 8], [0, 1, 1, 1], 4); // print 2
