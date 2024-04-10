@@ -1,20 +1,78 @@
 #  --------------------task1-------------------
-# def find_and_print(messages, current_station):
+def find_and_print(messages, current_station):
  # your code here
-  # print()
+  station_info = [
+    {"name": "Songshan", "line": "G", "code":0 },
+    {"name": "Nanjing Sanmin", "line": "G", "code":1 },
+    {"name": "Taipei Arena", "line": "G", "code":2 },
+    {"name": "Nanjing Fuxing", "line": "G", "code":3 },
+    {"name": "Songjiang Nanjing", "line": "G", "code":4 },
+    {"name": "Zhongshan", "line": "G", "code":5 },
+    {"name": "Beimen", "line": "G", "code":6 },
+    {"name": "Ximen", "line": "G", "code":7 },
+    {"name": "Xiaonanmen", "line": "G", "code":8 },
+    {"name": "Chiang Kai-Shek Memorial Hal", "line": "G", "code": 9},
+    {"name": "Guting", "line": "G", "code": 10},
+    {"name": "Taipower Building", "line": "G", "code": 11},
+    {"name": "Gongguan", "line": "G", "code": 12},
+    {"name": "Wanlong", "line": "G", "code": 13},
+    {"name": "Jingmei", "line": "G", "code": 14},
+    {"name": "Dapinglin", "line": "G", "code": 15},
+    {"name": "Qizhang", "line": "G", "code": 16},
+    {"name": "Xiaobitan", "line": "G-A", "code": 1},
+    {"name": "Xindian City Hall", "line": "G", "code": 17},
+    {"name": "Xindian", "line": "G", "code": 18} 
+  ]
+  current_station_line = ""
+  current_station_code = 0
 
-#  messages={
-#   "Leslie":"I'm at home near Xiaobitan station.",
-#   "Bob":"I'm at Ximen MRT station.",
-#   "Mary":"I have a drink near Jingmei MRT station.",
-#   "Copper":"I just saw a concert at Taipei Arena.",
-#   "Vivian":"I'm at Xindian station waiting for you."
-#  }
-# find_and_print(messages, "Wanlong") # print Mary
-# find_and_print(messages, "Songshan") # print Copper
-# find_and_print(messages, "Qizhang") # print Leslie
-# find_and_print(messages, "Ximen") # print Bob
-# find_and_print(messages, "Xindian City Hall") # print Vivian
+  def render_current_station_line ():
+    for x in station_info:
+      if x["name"]==current_station:
+        return x["line"]
+  def render_current_station_code ():
+    for x in station_info:
+      if x["name"]==current_station:
+        return x["code"]
+  
+  current_station_line = render_current_station_line()
+  current_station_code = render_current_station_code()
+
+  def compare_station_distance():
+    closest = 19
+    menus = 0
+    closest_message =""
+    for y in messages:
+      for z in station_info:
+        if z["name"] in messages[y]:
+          if z["line"] == current_station_line:
+            menus=abs(z["code"]-current_station_code)
+            if menus < closest:
+              closest = menus
+              closest_message=y
+              # print(closest)
+          else:
+            menus=z["code"]+abs(16-current_station_code)
+            if menus < closest:
+              closest = menus
+              closest_message=y
+              # print(closest)
+    print(closest_message)
+  compare_station_distance()
+ 
+
+messages={
+"Leslie":"I'm at home near Xiaobitan station.",
+"Bob":"I'm at Ximen MRT station.",
+"Mary":"I have a drink near Jingmei MRT station.",
+"Copper":"I just saw a concert at Taipei Arena.",
+"Vivian":"I'm at Xindian station waiting for you."
+}
+find_and_print(messages, "Wanlong") # print Mary
+find_and_print(messages, "Songshan") # print Copper
+find_and_print(messages, "Qizhang") # print Leslie
+find_and_print(messages, "Ximen") # print Bob
+find_and_print(messages, "Xindian City Hall") # print Vivian
 
 #  --------------------task2-------------------
 # your code here, maybe
@@ -63,13 +121,10 @@ def book(consultants, hour, duration, criteria):
       else:
         print("No Service")
 
-  
   def order_hour(consultant):
     for z in consultants_list:
       if z["name"] == consultant:
         z["occupied_time"] = z["occupied_time"]|hour_period
-        
-
 
   get_hour_period()
   insert_occupied_time()
