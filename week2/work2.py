@@ -1,4 +1,4 @@
-# task1
+#  --------------------task1-------------------
 # def find_and_print(messages, current_station):
  # your code here
   # print()
@@ -16,25 +16,81 @@
 # find_and_print(messages, "Ximen") # print Bob
 # find_and_print(messages, "Xindian City Hall") # print Vivian
 
-# # task2
-# # your code here, maybe
-# def book(consultants, hour, duration, criteria):
-#  # your code here
-#  consultants=[
-#  {"name":"John", "rate":4.5, "price":1000},
-#  {"name":"Bob", "rate":3, "price":1200},
-#  {"name":"Jenny", "rate":3.8, "price":800}
-#  ]
-#  book(consultants, 15, 1, "price") # Jenny
-#  book(consultants, 11, 2, "price") # Jenny
-#  book(consultants, 10, 2, "price") # John
-#  book(consultants, 20, 2, "rate") # John
-#  book(consultants, 11, 1, "rate") # Bob
-#  book(consultants, 11, 2, "rate") # No Service
-#  book(consultants, 14, 3, "price") # John
+#  --------------------task2-------------------
+# your code here, maybe
+def book(consultants, hour, duration, criteria):
+ # your code here
+  consultants_list=consultants
+  available_list=[]
+  hour_period = set()
+  def get_hour_period():
+    hour_time = hour
+    for y in range(duration):
+      if y<=duration:
+        hour_period.add(hour_time)
+        hour_time+=1
+  
+  def insert_occupied_time():
+    for x in consultants_list:
+      if "occupied_time" not in x:
+        x["occupied_time"]=set()
+  
+  def get_available_list():  
+    for y in consultants_list:
+      inter = y["occupied_time"]&hour_period
+      if len(inter) == 0:
+        available_list.append(y)
 
-# task3
+  def select_consultant(criteria):
+      if len(available_list) > 0:
+        chosen= available_list[0]["name"]
+        if criteria=="price":
+          min = available_list[0][criteria]
+          for x in available_list:
+            if x[criteria]<min:
+              min=x[criteria]
+              chosen=x["name"]
+          print(chosen)
+          return chosen
+        elif criteria=="rate":
+          max = available_list[0][criteria]
+          for x in available_list:
+            if x[criteria]>max:
+              max=x[criteria]
+              chosen=x["name"]
+          print(chosen)
+          return chosen
+      else:
+        print("No Service")
 
+  
+  def order_hour(consultant):
+    for z in consultants_list:
+      if z["name"] == consultant:
+        z["occupied_time"] = z["occupied_time"]|hour_period
+        
+
+
+  get_hour_period()
+  insert_occupied_time()
+  get_available_list()
+  the_chosen_one = select_consultant(criteria)
+  order_hour(the_chosen_one)
+
+consultants=[
+{"name":"John", "rate":4.5, "price":1000},
+{"name":"Bob", "rate":3, "price":1200},
+{"name":"Jenny", "rate":3.8, "price":800}
+]
+book(consultants, 15, 1, "price") # Jenny
+book(consultants, 11, 2, "price") # Jenny
+book(consultants, 10, 2, "price") # John
+book(consultants, 20, 2, "rate") # John
+book(consultants, 11, 1, "rate") # Bob
+book(consultants, 11, 2, "rate") # No Service
+book(consultants, 14, 3, "price") # John
+
+# --------------------task3-------------------
 def func(*data):
   member_list=[]
   member_list_sliced=[]
@@ -82,7 +138,7 @@ func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花") # print
 func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有
 func("郭宣雅", "夏曼藍波安", "郭宣恆") # print 夏曼藍波安
 
-# task4
+# --------------------task4-------------------
 def get_number(index):
 # your code here
   list = []
@@ -106,7 +162,7 @@ get_number(5) # print 15
 get_number(10) # print 25
 get_number(30) # print 70
 
-# task5
+# --------------------task5-------------------
 def find(spaces, stat, n):
  # your code here
   min=n
