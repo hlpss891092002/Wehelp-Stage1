@@ -1,4 +1,4 @@
-// task 1
+//  --------------------task1-------------------
  function findAndPrint(messages, currentStation){
  // your code here
   const stationInfo = [
@@ -22,50 +22,46 @@
     {"name": "Xiaobitan", "line": "G-A", "codeNumber": 1},
     {"name": "Xindian City Hall", "line": "G", "codeNumber": 17},
     {"name": "Xindian", "line": "G", "codeNumber": 18} 
-  ]
-  let currentStationLine = ""
-  let currentStationCode = 0
-  let messagesPerson = ""
-  let messagesPersonStation = ""
-  let closest = 19
+  ];
+  let currentStationLine = "";
+  let currentStationCode = 0;
+  let messagesPerson = "";
+  let closest = 19;
 
   function renderCurrentStationData (){
     for (info of stationInfo){
         if(info.name === currentStation){
-          currentStationCode = info.codeNumber
-          currentStationLine = info.line
-        }
+          currentStationCode = info.codeNumber;
+          currentStationLine = info.line;
+        };
     }
 
   }
   function compareCode (currentStation){
-      let result = 0
+      let result = 0;
     for( info of stationInfo){
       for(j in messages){
         if(messages[j].includes(info.name)){
           if(currentStationLine !== info.line){
-            result = 1 + Math.abs(16-currentStationCode)
+            result = 1 + Math.abs(16-currentStationCode);
             if(closest > result){
-              closest = result
-              messagesPerson = j
-              messagesPersonStation = info.name
-            }
+              closest = result;
+              messagesPerson = j;
+            };
           }else if ( currentStationLine == info.line){
             result = Math.abs(info.codeNumber - currentStationCode)
               if(closest > result){
-              closest = result
-              messagesPerson = j
-              messagesPersonStation = info.name
-            }
-          }
-        }
-      }
-    }
-  }
-
-  renderCurrentStationData()
-  compareCode()
-  console.log(messagesPerson)
+              closest = result;
+              messagesPerson = j;
+            };
+          };
+        };
+      };
+    };
+  };
+  renderCurrentStationData();
+  compareCode();
+  console.log(messagesPerson);
  }
 
  const messages={
@@ -82,86 +78,86 @@
  findAndPrint(messages, "Xindian City Hall"); // print Vivian
 
  
- //task2
+ // --------------------task2-------------------
   const consultants=[
  {"name":"John", "rate":4.5, "price":1000},
  {"name":"Bob", "rate":3, "price":1200},
  {"name":"Jenny", "rate":3.8, "price":800}
  ];
  // your code here, maybe
- let consultantsList = [...consultants]
+ let consultantsList = [...consultants];
  function book(consultants, hour, duration, criteria){
  // your code here
  
- let availableList = []
+ let availableList = [];
  
  function inSertOccupyTime(){
     for( i of consultantsList){
       if(!i.occupiedTime){
-        i.occupiedTime = []
-      }
-    }
- }
+        i.occupiedTime = [];
+      };
+    };
+ };
 function getAvailableList(){
-  let orderPeriod = []
+  let orderPeriod = [];
   for(let j = hour; j < hour + duration; j++ ){
-    orderPeriod.push(j)
-  }
+    orderPeriod.push(j);
+  };
   consultantsList.forEach((ele)=>{
     function check(item){
-      return !ele.occupiedTime.includes(item)
-    }
+      return !ele.occupiedTime.includes(item);
+    };
     if(orderPeriod.every(check)){
-      availableList.push(ele)
+      availableList.push(ele);
     }else{
       return
-    }
+    };
   })
 
-}
+};
 function selectConsultant (){
-  let result = 0
-  let selectConsultantName = ""
+  let result = 0;
+  let selectConsultantName = "";
   if(criteria === "price"){
-     result = 10000
+     result = 10000;
       for (i of availableList){
         if(i[criteria] < result){
-          result =  i[criteria]
-          selectConsultantName = i.name
-        }
-      }
+          result =  i[criteria];
+          selectConsultantName = i.name;
+        };
+      };
   }else if(criteria === "rate") {
-    result = 0
+    result = 0;
       for (i of availableList){
         if(i[criteria] > result ){
-          result =  i[criteria]
-          selectConsultantName = i.name
-        }
-      }
-  }
-  return selectConsultantName
-} 
+          result =  i[criteria];
+          selectConsultantName = i.name;
+        };
+      };
+  };
+  return selectConsultantName;
+}; 
 function orderHour (name){
   if(availableList.length === 0){
-    console.log("No service")
+    console.log("No service");
   }else{
     for( i of consultantsList){
       if(i.name === name){
         for(let j = hour; j <hour + duration; j++ ){
-          i.occupiedTime.push(j)
-        }
-      }
-    }
-    console.log(name)
+          i.occupiedTime.push(j);
+        };
+      };
+    };
+    console.log(name);
   }
 
 }
 
- inSertOccupyTime()
- getAvailableList()
- let theChosenOne = selectConsultant()
- orderHour(theChosenOne)
- }
+ inSertOccupyTime();
+ getAvailableList();
+ let theChosenOne = selectConsultant();
+ orderHour(theChosenOne);
+ };
 
  book(consultants, 15, 1, "price"); // Jenny
  book(consultants, 11, 2, "price"); // Jenny
@@ -171,107 +167,104 @@ function orderHour (name){
  book(consultants, 11, 2, "rate"); // No Service
  book(consultants, 14, 3, "price"); // John
 
-//  task3 
+// --------------------task3-------------------
  function func(...data){
  // your code here
- let nameList = [...data]
-let sameLetter = []
-let differName = []
-let midNameArray = sliceWords()
+ let nameList = [...data];
+let sameLetter = [];
+let differName = [];
+let midNameArray = sliceWords();
 
 function sliceWords(){
    let  midNameArray1 =nameList.map((ele)=>{
     if(ele.length < 3){
-      return [...ele.slice(1,2)]
+      return [...ele.slice(1,2)];
     }else{
-      return [...ele.slice(1,ele.length-1)]
+      return [...ele.slice(1,ele.length-1)];
     }
  })
-    return(midNameArray1)
-}
+    return(midNameArray1);
+};
 
 function figureOutSame(){
  for(let i = 0; i < midNameArray.length; i++){
   for(let j = midNameArray.length-1; j>= 0 ; j--){
     if(i === j ){
-      continue
+      continue;
     }
       for(letter of midNameArray[i]){   
       if(midNameArray[j].includes(letter)){
-        sameLetter.push(nameList[j])
-      }
-    } 
-  }
- }
-}
+        sameLetter.push(nameList[j]);
+      };
+    } ;
+  };
+ };
+};
 
 function printResult(){
  for(names of nameList){
-  // console.log(names)
-  // console.log(!sameLetter.includes(names))
     if(!sameLetter.includes(names)){
-      differName.push(names)
-    }
-  } 
+      differName.push(names);
+    };
+  } ;
   if(differName.length === 0){
-    console.log("沒有")
+    console.log("沒有");
   }else{
-    console.log(...differName)
-  }
+    console.log(...differName);
+  };
 
-}
-figureOutSame()
-printResult()
+};
+figureOutSame();
+printResult();
 
-}
+};
 
 func("彭大牆", "陳王明雅", "吳明"); // print 彭大牆
 func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花"); // print 林花花
 func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有
 func("郭宣雅", "夏曼藍波安", "郭宣恆"); // print 夏曼藍波安
 
-//task4
+// --------------------task4-------------------
 function getNumber(index){
  // your code here
- let array =[]
- let num = 0
+ let array =[];
+ let num = 0;
  for(let i = 0; i <= index+1; i++){
     if(i === 0){
-      num += 0
-      array.push(num)
+      num += 0;
+      array.push(num);
     }else if(i % 3 === 1){
-      num += 4
-      array.push(num)
+      num += 4;
+      array.push(num);
     }else if(i % 3 === 2){
-      num += 4
-      array.push(num)   
+      num += 4;
+      array.push(num);  
     }else if(i % 3 === 0){
-      num -= 1
-      array.push(num)
-    }
-  }
-  console.log(array[index])
- }
+      num -= 1;
+      array.push(num);
+    };
+  };
+  console.log(array[index]);
+ };
 
  getNumber(1); // print 4
  getNumber(5); // print 15
  getNumber(10); // print 25
  getNumber(30); // print 70
 
-//  task5
+//  --------------------task5-------------------
 function find(spaces, stat, n){
  // your code here
- let min = n
- let carNum = -1
+ let min = n;
+ let carNum = -1;
  for(let i = 0; i < spaces.length; i++){
-  let menus = spaces[i] - n
+  let menus = spaces[i] - n;
   if(menus < n && menus >= 0 && stat[i] === 1){
-
-     min = menus
-     carNum = i
+     min = menus;
+     carNum = i;
   }
  }
- console.log(carNum)
+ console.log(carNum);
 }
  find([3, 1, 5, 4, 3, 2], [0, 1, 0, 1, 1, 1], 2); // print 5
  find([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4); // print-1
