@@ -50,13 +50,11 @@ def find_and_print(messages, current_station):
             if menus < closest:
               closest = menus
               closest_message=y
-              # print(closest)
           else:
             menus=z["code"]+abs(16-current_station_code)
             if menus < closest:
               closest = menus
               closest_message=y
-              # print(closest)
     print(closest_message)
   compare_station_distance()
  
@@ -161,7 +159,6 @@ def func(*data):
         member_list_sliced.append(set(y[1:len(y)-1]))
   def figure_out_same():
     for y in range(len(member_list_sliced)):
-      # print(y)
       for z in range(len(member_list_sliced)):
         if y==z :
           continue
