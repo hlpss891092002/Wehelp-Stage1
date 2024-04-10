@@ -35,12 +35,52 @@
 
 # task3
 
-# def func(*data):
- # your code here
-# func("彭大牆", "陳王明雅", "吳明") # print 彭大牆
-# func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花") # print 林花花
-# func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有
-# func("郭宣雅", "夏曼藍波安", "郭宣恆") # print 夏曼藍波安
+def func(*data):
+  member_list=[]
+  member_list_sliced=[]
+  member_set_same=set()
+  member_set_differ=set()
+  for x in data:
+    member_list.append(x)
+  def slice_to_list():
+    for y in member_list:
+      if len(y)<3:
+        member_list_sliced.append(set(y[1]))
+      elif len(y)>=3:
+        member_list_sliced.append(set(y[1:len(y)-1]))
+  def figure_out_same():
+    for y in range(len(member_list_sliced)):
+      # print(y)
+      for z in range(len(member_list_sliced)):
+        if y==z :
+          continue
+        else:
+          set_y = member_list_sliced[y]
+          set_z = member_list_sliced[z]
+          if len(set_y&set_z) > 0:
+            member_set_same.add(member_list[y])
+  def print_result():
+    for b in member_list:
+      if b not in member_set_same:
+        member_set_differ.add(b)
+      else:
+        continue
+    if len(member_set_differ) == 0:
+      print("沒有")
+    else:
+      for i in member_set_differ:
+        print(i)
+    
+  slice_to_list()
+  figure_out_same()
+  print_result()
+
+
+ #your code here
+func("彭大牆", "陳王明雅", "吳明") # print 彭大牆
+func("郭靜雅", "王立強", "郭林靜宜", "郭立恆", "林花花") # print 林花花
+func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有
+func("郭宣雅", "夏曼藍波安", "郭宣恆") # print 夏曼藍波安
 
 # task4
 def get_number(index):
