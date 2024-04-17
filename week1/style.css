@@ -31,6 +31,7 @@ nav{
 
 .hamburger-icon{
   display: none;
+  /* background-color: aqua; */
   max-width: 5%;
 }
 
@@ -62,9 +63,11 @@ main {
 
 /* small */
 
+
 .sm-box{
   background-color:rgba(255, 195, 30, 0.4);
 }
+
 
 .sm-img {
   height: 50px;
@@ -94,6 +97,7 @@ main {
   flex-wrap: wrap;
   justify-content: right;
   height: 200px;
+  
 }
 
 .bg-text{
@@ -102,6 +106,10 @@ main {
   width: 100%;
   background-color: rgba(255, 166, 0, 0.3);
   margin: 0;
+  display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-wrap: normal;
 }
 
 @media(max-width: 1920px){
@@ -124,7 +132,7 @@ main {
     align-items: center;
     margin: 0 20px 20px 0;
     height: 50px;
-    max-width: 50%; 
+    width: 50%; 
   }
   #smb-1{
     max-width: 380px;
@@ -136,6 +144,12 @@ main {
     display: flex;
     width: 100%;
     height: 0%;
+  }
+  .bg-box {
+    text-align: left;
+    align-items: end;
+    width: 185px;
+    margin: 0 20px 20px 0;
   }
   #bgb-1 {
     background-color: aqua;
@@ -173,12 +187,7 @@ main {
     display: flex;
   justify-content: space-evenly;
   }
-  .bg-box {
-    text-align: left;
-    align-items: end;
-    width: 25%;
-    margin: 0 20px 20px 0;
-}
+  
 }
 
 @media(max-width:1200px) {
