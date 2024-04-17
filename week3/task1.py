@@ -56,5 +56,4 @@ with open("spot.csv", mode="w", encoding="utf-8", newline="") as csvfile:
 with open("mrt.csv", mode="w", encoding="utf-8", newline="") as csvfile:
   writer = csv.writer(csvfile)
   for key in MRT_and_spot:
-    writer.writerow([key, MRT_and_spot[key]])
     csvfile.write(key+","+MRT_and_spot[key]+"\n")
