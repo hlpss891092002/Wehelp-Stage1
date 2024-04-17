@@ -56,6 +56,7 @@ def get_data(url):
       str0=",".join(list)
       all_data_list.append(str0)
       i+=1
+    # all_data_list.append("完成一頁")
   get_titles()
   get_likes()
   get_time()
@@ -67,6 +68,7 @@ pageURL="https://www.ptt.cc/bbs/Lottery/index.html"
 count=0
 while count<3:
   pageURL="https://www.ptt.cc"+get_data(pageURL)
+  print(f"完成第{count}頁")
   count+=1
 with open("article.csv", mode="w", encoding="utf-8",newline="") as csvfile:
   for article in all_data_list:
