@@ -1,0 +1,317 @@
+/* 共通 */
+body{
+  font-size: 20px;
+  margin: 0;
+
+}
+/* nav */
+nav{
+  max-width: 100vw;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.web-title{
+  text-wrap:nowrap;
+}
+.menu, .hamburger {
+  display: flex;
+  flex: auto;
+  justify-content: flex-end;
+  align-items: center;
+}
+.nav-item {
+  margin-left: 10px;
+}
+
+.hamburger-list{
+  /* visibility:hidden; */
+  display: none;
+}
+
+.hamburger-icon{
+    visibility: hidden;
+  display: none;
+  /* background-color: aqua; */
+  max-width: 5%;
+}
+
+/* Welcome */
+.banner {
+  margin: 0 0 20px 0;
+  background-color:rgba(255, 120, 30, 0.466);
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2em;
+}
+/* 主內容 */
+
+main {
+  display: flex;
+  justify-content: center;
+  /* padding: 2px; */
+}
+
+.main-content {
+  /* padding: 2px; */
+  width: 1200px;
+  align-items: center;
+}
+
+/* small */
+
+
+.sm-box{
+  background-color:rgba(255, 195, 30, 0.4);
+}
+
+/* .smb-2 {
+  background-color: aqua;
+} */
+
+.sm-img {
+  height: 50px;
+  width: 80px;
+  background-color: aliceblue;
+  flex: none;
+  object-fit: cover;
+  object-position: center;
+}
+.sm-box p{
+ margin: 0 0 0 5px;
+}
+
+/* big */
+.fa-star {
+  color: rgb(255, 251, 0);
+  display: block;
+  align-self: flex-start;
+}
+
+.bg-box{
+  background-image: url("jojo2.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  height: 200px;
+}
+
+.bg-text{
+  color: aliceblue;
+  text-align: center;
+  vertical-align: center;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  width: 100%;
+  background-color: rgba(146, 117, 23, 0.7);
+  margin: 0;
+}
+
+@media(max-width: 1920px){
+  .ipad-mode{
+    display: none;
+  }
+  .mobile-mode{
+    display: none;
+  }
+  .small-box {
+    display: flex;
+    max-width: 1200px;
+    justify-content: space-between ;
+  }
+
+  .sm-box {
+    flex: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 20px 20px 0;
+    height: 50px;
+    max-width: 50%; 
+  }
+  #smb-1{
+    max-width: 380px;
+  }
+  #smb-3{
+    margin-right: 0;
+  }
+  .block {
+    display: flex;
+    width: 100%;
+    height: 0%;
+  }
+  #bgb-1 {
+    background-color: aqua;
+    margin-right: 20px;
+    width: 380px;
+  }
+
+  #bgb-6 {
+    background-color: aqua;
+    margin-right: 20px;
+    width: 380px;
+  }
+  #bgb-5 {
+    margin-right: 0;
+  }
+
+  #bgb-10 {
+    margin-right: 0;
+  }
+  .big-box {
+    display: flex;
+    max-width: 1200px;
+    flex-wrap: wrap;
+  }
+  #bgb-5 {
+    margin-right: 0;
+  }
+
+  #bgb-10 {
+    margin-right: 0;
+  }
+  
+  .innerBlock-2 {
+    flex: auto;
+    display: flex;
+  justify-content: space-evenly;
+  }
+  .bg-box {
+    text-align: left;
+    align-items: end;
+    width: 25%;
+    margin: 0 20px 20px 0;
+}
+}
+
+@media(max-width:1200px) {
+  .pc-mode{
+    display: none;
+  }
+  .ipad-mode{
+    display: block;
+  }
+  .mobile-mode{
+    display: none;
+  }
+  
+  .main-content {
+      width: 90%;
+    }
+  .small-box{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+
+  .sm-box{
+    max-width: 100%;
+    flex: auto;
+    margin: 0 20px 20px 0;
+  }
+  #smb-2{
+    margin-right: 0;
+  }
+
+  #smb-3{
+    margin-right: 0;
+  }
+
+  #bgb-4{
+    margin-right: 0;
+  }
+  #bgb-8 {
+    margin-right: 0;
+  }
+  #bgb-10 {
+    margin-right: 0;
+  }
+
+  .big-box{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .bg-box{
+    flex: auto;
+    max-width: 50%;
+  }
+
+}
+
+@media(max-width:600px) {
+  .hamburger-icon{
+    display: block;
+  }
+  .hamburger-list {
+    display: none;
+    flex-direction: column;
+    margin: 0;
+    position: absolute;
+    background-color: cadetblue;
+    inset: 0 0 0 40%
+    }
+    .close-icon{
+      margin: 20px;
+      align-self: flex-end;
+      width: 30px;
+    }
+    .hamburger-item{
+      margin: 20px;
+    }
+
+  .pc-mode {
+      display: none;
+    }
+
+    .ipad-mode {
+      display: none;
+    }
+
+    .mobile-mode {
+      display: block;
+    }
+    .menu{
+      display: none;
+    }
+    .small-box{
+      display: flex;
+      flex-direction: column;
+    }
+    .sm-box{
+      margin-right: 0;
+      width: 100%;
+    }
+    .big-box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .bg-box{
+      flex: auto;
+      margin-right: 0;
+      min-width: 100%;
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
