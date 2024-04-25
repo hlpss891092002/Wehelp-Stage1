@@ -16,9 +16,13 @@ loginBtn.addEventListener("click",(e)=>{
 
 
 squareSubmit.addEventListener("click",(e)=>{
-  if(!Number.isInteger(squareInput.value)){
+  let squareValue = Number(squareInput.value) 
+  if(!Number.isInteger(squareValue)){
     alert("Please enter a positive number")
     e.preventDefault()
+  }else{
+    e.preventDefault()
+    location.href=`/square/${squareValue}`
   }
-  
+
 })

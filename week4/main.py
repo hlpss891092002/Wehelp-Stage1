@@ -28,16 +28,26 @@ async def signin_in(request: Request, username: str = Form(None), password: str 
     elif username == user["username"] and password == user["password"]:
        request.session["SIGNED_IN"] = "TRUE"
        redirect_url = request.url_for("member_page")
+       print(request.session)
        return RedirectResponse(redirect_url, status_code=status.HTTP_303_SEE_OTHER)
       
     elif username != "test" or password != "test":
         return RedirectResponse("/error?message={message_error}".format(**error_message),status_code=status.HTTP_303_SEE_OTHER )  
 
+@app.get("/square/{squarenumber}", response_class=HTMLResponse)
+async def read_item(request: Request, squarenumber: int ):
+   return templates.TemplateResponse(
+        request=request, name="square.html", context={"squarenumber": squarenumber**2}
+    )
 
+# @app.get("/square/")
+# async def  read_item(squarenumber):
+#     return squarenumber
 
 @app.get("/signout", status_code=status.HTTP_303_SEE_OTHER)
 async def sign_out(request : Request):
         request.session["SIGNED_IN"] = "FALSE"
+        print(request.session)
         return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
 
 # 
@@ -66,9 +76,4 @@ async def read_home_page(request: Request):
         )
 
 
-@app.get("/square/{number}", response_class=HTMLResponse)
-async def render_square_number(request: Request, number: int):
-    return templates.TemplateResponse(
-        request=request, name="square.html", context = {"square": number**2}
-    )
-    pass
+
