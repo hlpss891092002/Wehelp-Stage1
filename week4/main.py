@@ -1,8 +1,10 @@
+import time
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
+from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from fastapi import FastAPI, Request, Form,status 
+from fastapi import FastAPI, Request, Form, status, Response, APIRouter 
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -11,25 +13,39 @@ from typing import Annotated, Union
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.add_middleware(SessionMiddleware, secret_key="some-random-string", https_only=True)
 templates = Jinja2Templates(directory="templates")
 
 error_message = {"message_empty": "請輸入帳號、密碼", "message_error": "帳號、密碼輸入錯誤"}
+user = {"username":"test", "password": "test"}
 
 @app.post("/signin")
-async def signin_in(request: Request, username: str = Form(None), password: str = Form(None) ):
+async def signin_in(request: Request, username: str = Form(None), password: str = Form(None),  ):
     # return {username is None and password is None }
     if username is None or password is None:
         return RedirectResponse("/error?message={message_empty}".format(**error_message),status_code=status.HTTP_303_SEE_OTHER ) 
     
-    elif username == "test" and password == "test":
+    elif username == user["username"] and password == user["password"]:
+       request.session["SIGNED_IN"] = "TRUE"
        redirect_url = request.url_for("member_page")
        return RedirectResponse(redirect_url, status_code=status.HTTP_303_SEE_OTHER)
       
     elif username != "test" or password != "test":
         return RedirectResponse("/error?message={message_error}".format(**error_message),status_code=status.HTTP_303_SEE_OTHER )  
 
+
+
+@app.post("/signout", status_code=status.HTTP_303_SEE_OTHER)
+async def sign_out(request : Request, signout: str = Form(None)):
+    if signout is None:
+        request.session["SIGNED_IN"] = "FALSE"
+        return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+
+# 
 @app.get("/member", response_class=HTMLResponse)
 async def member_page(request: Request):
+    if request.session["SIGNED_IN"] == "FALSE":
+        return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse(
         request=request, name="member.html"
     )
@@ -40,19 +56,14 @@ async def error_page(request: Request, message: str):
         request=request, name="error.html", context = {"error":message }
     )
 
-# @app.get("/error/{error}", response_class=HTMLResponse)
-# async def error_page(request: Request, error: str):
-#     return templates.TemplateResponse(
-#         request=request, name="error.html", context={"error": error}
-#     )
-
-
-    
-
 @app.get("/", response_class=HTMLResponse)
 async def read_home_page(request: Request):
-    return templates.TemplateResponse(
-         request=request, name="user.html"
-    )
+    if request.session["SIGNED_IN"] == "TRUE":
+        return RedirectResponse("/member") 
+    else:
+        request.session["SIGNED_IN"] = "FALSE"
+        return templates.TemplateResponse(
+            request=request, name="user.html"
+        )
 
 

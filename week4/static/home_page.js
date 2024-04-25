@@ -1,6 +1,6 @@
 const agreeBox = document.querySelector(".agree-box")
 const loginBtn = document.querySelector(".login-btn")
-
+const signOut = document.querySelector("#sign-out")
 
 loginBtn.addEventListener("click",(e)=>{
   // 
@@ -9,6 +9,8 @@ loginBtn.addEventListener("click",(e)=>{
     e.preventDefault()
   }
   // else{
-//     // location.href="/signin"
-//   }
+  //   location.href="/signin"
+  // }
 })
+
+signOut.submit()

@@ -13,7 +13,9 @@
     <!-- <div></div> -->
     <div class="login-box">
       <p>恭喜您，成功登入系統</p>
-      <a href="/">登出系統</a>
+      <form action="/signout" method="post" id="my_form">
+        <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">登出系統</a>
+      </form>
     </div>
   </div>
   <script src="/static/home_page.js"></script>
