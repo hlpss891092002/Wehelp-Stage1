@@ -1,35 +1,58 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
+from starlette.applications import Starlette
+from starlette.middleware import Middleware
+from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from fastapi import FastAPI, Request, Form,status 
+from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from typing_extensions import Annotated
+from pydantic import BaseModel, Field
+from typing import Annotated, Union
 
 app = FastAPI()
-
-# correct_pair = [{"username": "test"}, {"password": "test"}]
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
+
+error_message = {"message_empty": "請輸入帳號、密碼", "message_error": "帳號、密碼輸入錯誤"}
+
+@app.post("/signin")
+async def signin_in(request: Request, username: str = Form(None), password: str = Form(None) ):
+    # return {username is None and password is None }
+    if username is None or password is None:
+        return RedirectResponse("/error?message={message_empty}".format(**error_message),status_code=status.HTTP_303_SEE_OTHER ) 
+    
+    elif username == "test" and password == "test":
+       redirect_url = request.url_for("member_page")
+       return RedirectResponse(redirect_url, status_code=status.HTTP_303_SEE_OTHER)
+      
+    elif username != "test" or password != "test":
+        return RedirectResponse("/error?message={message_error}".format(**error_message),status_code=status.HTTP_303_SEE_OTHER )  
+
+@app.get("/member", response_class=HTMLResponse)
+async def member_page(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="member.html"
+    )
+
+@app.get("/error", response_class=HTMLResponse)
+async def error_page(request: Request, message: str):
+    return templates.TemplateResponse(
+        request=request, name="error.html", context = {"error":message }
+    )
+
+# @app.get("/error/{error}", response_class=HTMLResponse)
+# async def error_page(request: Request, error: str):
+#     return templates.TemplateResponse(
+#         request=request, name="error.html", context={"error": error}
+#     )
+
+
+    
 
 @app.get("/", response_class=HTMLResponse)
 async def read_home_page(request: Request):
     return templates.TemplateResponse(
          request=request, name="user.html"
     )
-# @app.post("/login/")
-# async def login(username: Annotated[str, Form], password: Annotated[str, Form]):
-#     return {username}
-
-# @app.get("/items/{id}", response_class=HTMLResponse)
-# async def read_item(request: Request, id: str):
-#     return templates.TemplateResponse(
-#         request=request, name="item.html", context={"id": id}
-#     )
-
-# @app.post("/submit")
-# async def submit_form(username: str = Form(...), password: str = Form(...)):
-#     return {"username": username, "password": password}
-
-
 
 
