@@ -1,6 +1,7 @@
 const agreeBox = document.querySelector(".agree-box")
 const loginBtn = document.querySelector(".login-btn")
-const signOut = document.querySelector("#sign-out")
+const squareSubmit = document.querySelector(".square-btn")
+const squareInput = document.querySelector(".square-input")
 
 loginBtn.addEventListener("click",(e)=>{
   // 
@@ -13,4 +14,11 @@ loginBtn.addEventListener("click",(e)=>{
   // }
 })
 
-signOut.submit()
+
+squareSubmit.addEventListener("click",(e)=>{
+  if(!Number.isInteger(squareInput.value)){
+    alert("Please enter a positive number")
+    e.preventDefault()
+  }
+  
+})

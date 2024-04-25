@@ -35,9 +35,8 @@ async def signin_in(request: Request, username: str = Form(None), password: str 
 
 
 
-@app.post("/signout", status_code=status.HTTP_303_SEE_OTHER)
-async def sign_out(request : Request, signout: str = Form(None)):
-    if signout is None:
+@app.get("/signout", status_code=status.HTTP_303_SEE_OTHER)
+async def sign_out(request : Request):
         request.session["SIGNED_IN"] = "FALSE"
         return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
 
@@ -67,3 +66,9 @@ async def read_home_page(request: Request):
         )
 
 
+@app.get("/square/{number}", response_class=HTMLResponse)
+async def render_square_number(request: Request, number: int):
+    return templates.TemplateResponse(
+        request=request, name="square.html", context = {"square": number**2}
+    )
+    pass

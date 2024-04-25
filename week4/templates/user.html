@@ -11,25 +11,40 @@
   <header class="welcome">歡迎光臨，請輸入帳號密碼</header>
   <div class="container">
     <!-- <div></div> -->
-    <div class="login-box">
-      <div class="login-introduce">登入系統</div>
-      <form method="post" action="/signin" class="login-data">
-        <div>  
-          <label for="username" class="account-title">帳號</label>
-          <input  class="key-in" type="text" name="username" >
-        </div>
+    <div class="box-container">
+      <div class="login-box">
+        <div class="login-introduce">登入系統</div>
+        <form method="post" action="/signin" class="login-data">
+          <div>  
+            <label for="username" class="account-title">帳號</label>
+            <input  class="key-in" type="text" name="username" >
+          </div>
+          <div>
+            <label for="password" class="password-title">密碼</label>
+            <input class="key-in" type="password"  name="password">
+          </div>
+          <div>
+            <label for="agree" class="agree-title">同意條款</label>
+            <input class="agree-box" type="checkbox" name="agree" >
+          </div>
+          <div>
+            <input type="submit" value="登入" class="login-btn">
+          </div>
+        </form>
+      </div>
+      <!-- <hr> -->
+      <!-- <div class="squared-box">
+        <p class="square-title">計算正整數平方</p>
         <div>
-          <label for="password" class="password-title">密碼</label>
-          <input class="key-in" type="password"  name="password">
+          <form method="post" action="/suqare" class="square-data">
+            <div>
+              <label for="square-value">正整數</label>
+              <input class = "key-in square-input" type="Int" name ="square-value">
+            </div>
+            <input type="submit" value="計算" class="square-btn" >
+          </form>
         </div>
-        <div>
-          <label for="agree" class="agree-title">同意條款</label>
-          <input class="agree-box" type="checkbox" name="agree" >
-        </div>
-        <div>
-          <input type="submit" value="登入" class="login-btn">
-        </div>
-      </form>
+      </div> -->
     </div>
   </div>
   <script src="/static/home_page.js"></script>
