@@ -30,6 +30,12 @@ header {
   margin: 10px;
   text-align: center;
 }
+.login-data{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .key-in {
   width: 150px;
 }
