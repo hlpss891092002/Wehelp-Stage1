@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <nav></nav>
+  <header class="welcome">歡迎光臨，會員頁面</header>
+  <div class="container">
+    <!-- <div></div> -->
+    <div class="box-container">
+      <div class="login-box">
+        <p>{{name}}，歡迎登入系統</p>
+        <!-- <form action="/signout" method="post" id="my_form"> -->
+          <a href="/signout">登出系統</a>
+        <!-- </form> -->
+      </div>
+      <hr>
+      <div class="message-intput-box">
+        <form method="post" action="/createMessage" class="message-data">
+          <div class="message-item">快來留言吧</div>
+          <div class="message-item">  
+            <label for="message" class="password-title">內容</label>
+            <input class="message-input" type="text" name="content">
+          </div>
+          <div class="message-item">
+            <input type="submit" value="送出" class="message-input-btn">
+          </div>
+        </form>
+      </div>
+      <hr>
+      <div class=" message-board">
+        {% for message in messages%}
+        <div>{{message[0]}} : {{message[1]}} </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <script src="/static/home_page.js"></script>
+</body>
+</html>
