@@ -26,11 +26,8 @@ mycursor = mydb.cursor()
 # mycursor.execute()
 
 
-def drop_table(table):
-  mycursor.execute(f"DROP TABLE {table}")
-
-def delete_row(table, id):
-  mycursor.execute(f"DELETE FROM {table} WHERE id={id}")
+def delete_row_from_message(id):
+  mycursor.execute(f"DELETE FROM message WHERE id={id}")
   mydb.commit()
 
 
@@ -66,7 +63,11 @@ def get_member_data(username, password):
   for data in member_data:
     pair = (data[2], data[3])
     if(pair == (username, password)):
-      return data[0:3]
+      user_state={}
+      user_state["id"]=data[0]
+      user_state["name"]=data[1]
+      user_state["username"]=data[2]
+      return user_state
 
 #for  message
 def insert_message(member_id, content):
@@ -77,15 +78,23 @@ def insert_message(member_id, content):
   print(mycursor.rowcount, "record inserted in message.")
 
 def get_all_message_data():
-  mycursor.execute("""SELECT name, content 
+  mycursor.execute("""SELECT message.id, member_id, name, content
                    FROM message 
                    INNER JOIN member ON message.member_id = member.id
                    ORDER BY message.time DESC
                    """)
-  messages = mycursor.fetchall()
+  messages_data = mycursor.fetchall()
+  messages=[]
+  # messages["id"]=messages_data[0]
+  for message_data in messages_data:
+    message={}
+    message["message_id"]=message_data[0]
+    message["member_id"]=message_data[1]
+    message["name"]=message_data[2]
+    message["content"]=message_data[3]
+    messages.append(message)
   return messages
-  for data in all_data:
-    print(data)
+
 
 @app.post("/signup")
 async def signup_page(request: Request, name: str=Form(None), username: str=Form(None), password: str=Form(None)):
@@ -97,12 +106,11 @@ async def signup_page(request: Request, name: str=Form(None), username: str=Form
 
 @app.post("/signin")
 async def signin_page(request: Request, username: str = Form(None),password: str=Form(None)):
-  if u_p_pair_check(username, password):
-    request.session["user_state"]= (get_member_data(username, password))
-    print(request.session)
-    return RedirectResponse("/member", status_code=status.HTTP_303_SEE_OTHER)
-  else:
-    return RedirectResponse("error?message={message_error}".format(**error_message), status_code=status.HTTP_303_SEE_OTHER)
+    if u_p_pair_check(username, password):
+      request.session["user_state"]= (get_member_data(username, password))
+      return RedirectResponse("/member", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+      return RedirectResponse("error?message={message_error}".format(**error_message), status_code=status.HTTP_303_SEE_OTHER)
 
 @app.get("/signout")
 async def signout_page(request: Request):
@@ -112,7 +120,6 @@ async def signout_page(request: Request):
 
 @app.get("/error", response_class=HTMLResponse)
 async def error_page(request: Request, message: str):
-  print(mydb)
   return templates.TemplateResponse(
     request=request, name="error.html", context={"error":message},
   )
@@ -121,25 +128,30 @@ async def error_page(request: Request, message: str):
 async def member(request:Request):
   get_all_message_data()
   if "user_state" in request.session :
-    print(request.session)
     print(request.session["user_state"])
-    name = request.session["user_state"][1]
+    name = request.session["user_state"]["name"]
+    member_id = request.session["user_state"]["id"]
     messages = get_all_message_data()
-    print(messages)
     return templates.TemplateResponse(
-      request=request, name="member.html",context={"name":name, "messages": messages}
+      request=request, name="member.html",context={"name":name, "messages": messages, "member_id":member_id}
     )
   else:
     return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
 
 @app.post("/createMessage")
 async def create_message(request: Request, content: str = Form(None)):
-  member_id=request.session["user_state"][0]
-  print(request.session["user_state"])
-  print(member_id)
-  print(content)
+  member_id=request.session["user_state"]["id"]
   insert_message(member_id, content)
   return RedirectResponse("/member",status_code=status.HTTP_303_SEE_OTHER)
+
+@app.post("/deleteMessage")
+async def delete_message(request: Request, message_id: int = Form(None)):
+  messages = get_all_message_data()
+  for message in messages:
+    if(message["message_id"]==message_id):
+      if(message["member_id"]==request.session["user_state"]["id"]):
+        delete_row_from_message(message_id)
+  return RedirectResponse("member", status_code=status.HTTP_303_SEE_OTHER)
 
 @app.get("/", response_class=HTMLResponse)
 async def home_page(request: Request):
