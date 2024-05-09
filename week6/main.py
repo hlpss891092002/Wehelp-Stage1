@@ -25,12 +25,6 @@ mycursor = mydb.cursor()
 
 # mycursor.execute()
 
-
-def delete_row_from_message(id):
-  mycursor.execute(f"DELETE FROM message WHERE id={id}")
-  mydb.commit()
-
-
 # for signup
 def insert_member(name, username, password):
   sql = "INSERT INTO member (name, username, password) VALUES (%s, %s, %s)"
@@ -40,22 +34,25 @@ def insert_member(name, username, password):
   print(mycursor.rowcount, "record inserted.in member")
 
 def check_repeat_username(username):
-  mycursor.execute("""SELECT username FROM member """)
-  usernames_list=mycursor.fetchall ()
-  for user in usernames_list:
-    name_of_user = user[0]
-    if(name_of_user == username):
-      return True
-  return False
+  sql = "SELECT username FROM member WHERE username = %s"
+  val = (f"{username}",)
+  mycursor.execute(sql, val)
+  usernames_list=mycursor.fetchone ()
+  if (usernames_list is None ):
+    return False
+  else:
+    return True
 
 #for sign in
 def u_p_pair_check(username, password):
-  mycursor.execute("SELECT username, password FROM member")
-  u_p_pair=mycursor.fetchall()
-  for pair in u_p_pair:
-    if(pair == (username, password)):
-      return True
-  return False
+  sql = "SELECT username, password FROM member WHERE username = %s AND password = %s"
+  val = (f"{username}", f"{password}")
+  mycursor.execute(sql, val)
+  u_p_pair=mycursor.fetchone()
+  if(u_p_pair is None):
+    return False
+  else:
+    return True
   
 def get_member_data(username, password):
   mycursor.execute("SELECT id, name, username, password FROM member")
@@ -95,9 +92,25 @@ def get_all_message_data():
     messages.append(message)
   return messages
 
+#for delete
+def get_member_id_from_message_id(message_id):
+  sql="SELECT  member_id, content FROM message WHERE id = %s "
+  val=(f"{message_id}",)
+  mycursor.execute(sql,val)
+  member_id=mycursor.fetchone()
+  message_info={}
+  message_info["member_id"]=member_id[0]
+  return message_info["member_id"]
+
+def delete_row_from_message(id):
+  sql = "DELETE FROM message WHERE id=%s"
+  val = (f"{id}",)
+  mycursor.execute(sql, val)
+  mydb.commit()
 
 @app.post("/signup")
 async def signup_page(request: Request, name: str=Form(None), username: str=Form(None), password: str=Form(None)):
+  check_repeat_username(username)
   if (check_repeat_username(username)):
     return RedirectResponse("/error?message={message_repeat_username}".format(**error_message), status_code=status.HTTP_303_SEE_OTHER)
   else:
@@ -106,6 +119,7 @@ async def signup_page(request: Request, name: str=Form(None), username: str=Form
 
 @app.post("/signin")
 async def signin_page(request: Request, username: str = Form(None),password: str=Form(None)):
+  # return u_p_pair_check(username, password)
     if u_p_pair_check(username, password):
       request.session["user_state"]= (get_member_data(username, password))
       return RedirectResponse("/member", status_code=status.HTTP_303_SEE_OTHER)
@@ -146,10 +160,8 @@ async def create_message(request: Request, content: str = Form(None)):
 
 @app.post("/deleteMessage")
 async def delete_message(request: Request, message_id: int = Form(None)):
-  messages = get_all_message_data()
-  for message in messages:
-    if(message["message_id"]==message_id):
-      if(message["member_id"]==request.session["user_state"]["id"]):
+  member_id = get_member_id_from_message_id(message_id)
+  if request.session["user_state"]["id"] == member_id:
         delete_row_from_message(message_id)
   return RedirectResponse("member", status_code=status.HTTP_303_SEE_OTHER)
 
