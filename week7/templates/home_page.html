@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <nav></nav>
+  <header class="welcome">歡迎光臨，請註冊登入系統</header>
+  <div class="container">
+    <!-- <div></div> -->
+    <div class="box-container">
+      <div class="signup-box">
+        <div class="login-introduce">註冊帳號</div>
+        <form method="post" action="/signup" class="login-data">
+          <div class="input-item">
+            <label for="name" class="username-title">姓名</label>
+            <input class="key-in signup-name-input" type="text" name="name">
+          </div>
+          <div class="input-item">  
+            <label for="username" class="account-title">帳號</label>
+            <input  class="key-in signup-username-input" type="text" name="username" >
+          </div>
+          <div class="input-item">
+            <label for="password" class="password-title">密碼</label>
+            <input class="key-in signup-password-input" type="password" name="password">
+          </div>
+          <div>
+            <input type="submit" value="註冊" class="signup-btn">
+          </div>
+        </form>
+      </div>
+      <hr>
+    <div class="signin-box">
+      <div class="signin-introduce">登入系統</div>
+      <form method="post" action="/signin" class="login-data">
+        <div class="input-item">
+          <label for="username" class="signin-username-title">帳號</label>
+          <input class="key-in signin-username" type="text" name="username">
+        </div>
+        <div class="input-item">
+          <label for="password" class="signin-password-title">密碼</label>
+          <input class="key-in signin-password" type="password" name="password">
+        </div>
+        <div>
+          <input type="submit" value="登入" class="login-btn">
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+  <script src="/static/home_page.js"></script>
+</body>
+</html>
