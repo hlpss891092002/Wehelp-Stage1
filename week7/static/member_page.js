@@ -9,7 +9,8 @@ const memberWelcome = document.getElementById("member-welcome")
 apiMemberBtn.addEventListener("click",(e)=>{
   e.preventDefault()
   let inputValue = apiMemberInput.value
-  fetch(`/api/member?username=${inputValue}`)
+  if (inputValue !== ""){
+      fetch(`/api/member?username=${inputValue}`)
     .then((response)=> {
       return response.json();
     })
@@ -42,7 +43,7 @@ apiMemberBtn.addEventListener("click",(e)=>{
     .catch((error) => {
       console.log("error");
     })
-    a 
+  }
 })
 
 

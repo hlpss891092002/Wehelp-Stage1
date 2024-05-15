@@ -40,17 +40,12 @@ async def read_item(request: Request, squarenumber: int ):
         request=request, name="square.html", context={"squarenumber": squarenumber**2}
     )
 
-# @app.get("/square/")
-# async def  read_item(squarenumber):
-#     return squarenumber
-
 @app.get("/signout", status_code=status.HTTP_303_SEE_OTHER)
 async def sign_out(request : Request):
         request.session["SIGNED_IN"] = "FALSE"
         print(request.session)
         return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
-
-# 
+ 
 @app.get("/member", response_class=HTMLResponse)
 async def member_page(request: Request):
     if request.session["SIGNED_IN"] == "FALSE":
