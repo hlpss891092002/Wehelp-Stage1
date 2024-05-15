@@ -68,10 +68,8 @@ async def member(request:Request):
 
 @app.get("/api/member")
 async def get_member_api(request: Request, username : str):
-  if "user_state" in request.session :
     return member_api(username)
-  else:
-    pass
+
 
 
 @app.patch("/api/member")
