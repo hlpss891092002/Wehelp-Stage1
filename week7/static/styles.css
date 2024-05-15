@@ -98,3 +98,11 @@ hr{
 .api-member-item{
   margin: 10px;
 }
+.update-name-box {
+  text-align: center;
+  margin: 10px;
+}
+
+.update-name-item {
+  margin: 10px;
+}

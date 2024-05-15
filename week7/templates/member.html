@@ -13,7 +13,7 @@
     <!-- <div></div> -->
     <div class="box-container">
       <div class="member-content">
-        <p class="member-item">{{name}}，歡迎登入系統</p>
+        <p class="member-item" id="member-welcome">{{name}}，歡迎登入系統</p>
         <!-- <form action="/signout" method="post" id="my_form"> -->
           <a class="member-item" href="/signout">登出系統</a>
         <!-- </form> -->
@@ -29,14 +29,21 @@
         </form>
       </div>
       <hr>
+      <div class="update-name-box">
+        <form method="PATCH" action="/api/member" id="update-form">
+          <div class="update-name-item">更新我的姓名</div>
+          <div class="update-name-item">
+            <input id="update-name-input" type="text" name="name">
+            <input type="submit" value="更新" id="update-name-btn">
+          </div>
+        </form>
+      </div>
+      <hr>
       <div class="message-input-box">
         <form method="post" action="/createMessage" class="message-data-form">
           <div class="message-item">快來留言吧</div>
           <div class="message-item">  
-            <label for="message" class="password-title">內容</label>
             <input class="message-input" type="text" name="content">
-          </div>
-          <div class="message-item">
             <input type="submit" value="送出" class="message-input-btn">
           </div>
         </form>

@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -103,7 +104,7 @@ def member_api(username):
   user_data=mycursor.fetchone ()
   if (user_data is None):
     user_api ={
-      "data":"null"
+      "data": None
     }
     return user_api
   else:
@@ -115,4 +116,10 @@ def member_api(username):
       }
     }
     return user_api
-  print(user_api)
+
+def name_update_api(username, update_name):
+  print( username, update_name)
+  sql = "UPDATE member SET name = %s WHERE username = %s "
+  val = (f"{update_name}", f"{username}")
+  mycursor.execute(sql, val)
+  mydb.commit
