@@ -87,8 +87,15 @@ hr{
   text-align: center;
 }
 
-.message-text {
+.message-form {
+  display: flex;
   margin: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.messages-list{
+  text-align: center;
 }
 
 .search-input-box{

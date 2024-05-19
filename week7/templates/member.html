@@ -50,18 +50,11 @@
       </div>
       <hr>
       <div class=" message-board">
-        {% for message in messages%}
-        <div class=" message-text .message_id">
-          <form method="post" action="/deleteMessage">
-            {{message.name}}:{{message.content}}
-            <input type="hidden" name="message_id" value="{{message.message_id}}">
-            {% if member_id == message.member_id %}
-            <input type="submit" value="x">
-            {% endif %}
-          </form>
+        <div class="messages-list">
         </div>
-        {% endfor %}    
+        <button class="load-message-btn">更多</button>
       </div>
+      
     </div>
   </div>
   <script src="/static/member_page.js"></script>

@@ -65,6 +65,18 @@ async def member(request:Request):
     )
   else:
     return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+    
+@app.get("/api/message")
+async def member(request:Request):
+  if "user_state" in request.session :
+    message_dict = {}
+    messages = get_all_message_data()
+    message_dict["messages"]=messages
+    message_dict["id"]=request.session["user_state"]["id"]
+    return message_dict
+  else:
+    return { messages: None}
+
 
 @app.get("/api/member")
 async def get_member_api(request: Request, username : str):
@@ -87,7 +99,7 @@ async def get_member_api(request: Request, name_dict: dict):
 async def create_message(request: Request, content: str = Form(None)):
   member_id=request.session["user_state"]["id"]
   insert_message(member_id, content)
-  return RedirectResponse("/member",status_code=status.HTTP_303_SEE_OTHER)
+  # return RedirectResponse("/member",status_code=status.HTTP_303_SEE_OTHER)
 
 @app.post("/deleteMessage")
 async def delete_message(request: Request, message_id: int = Form(None)):
