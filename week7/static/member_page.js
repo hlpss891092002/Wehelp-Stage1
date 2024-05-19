@@ -36,7 +36,7 @@ function createMessage (id, message){
   }
   messageBlock.appendChild(messageForm)
   messageList.appendChild(messageBlock)
-  console.log(messageList)
+  // console.log(messageList)
 }
 
 function loadMessages(){
@@ -46,7 +46,7 @@ function loadMessages(){
   })
   .then((response)=>{
     messages = response
-    console.log(messages.messages)
+    // console.log(messages.messages)
     for (let i = 0; i < 5; i++){
       id = messages.id
       message = messages.messages[i]
@@ -71,7 +71,15 @@ function createUpdateBlock(updateInfo){
   updateForm.appendChild(updateDiv)
 }
 
+function deleteOldMessages(){
+  let messagesList = document.querySelectorAll(".message")
+  for (message of  messagesList){
+    message.remove()
+  }
+}
+
 loadMessages()
+
 
 messageInputBtn.addEventListener("click", (e)=>{
   e.preventDefault()
@@ -89,7 +97,7 @@ apiMemberBtn.addEventListener("click",(e)=>{
     })
     .then((response) =>{
       let memberData = response.data
-      console.log(memberData)
+      // console.log(memberData)
       const memberDataDiv = document.getElementById("member-data-div")
       if(!memberDataDiv){
         let memberDataDiv = document.createElement("div")
@@ -143,12 +151,14 @@ updateNameBtn.addEventListener("click",(e)=>{
             updateWelcomeName(updateNameInput.value)
             updateNameInput.value = ""
             messageAmount = 0
+            deleteOldMessages()
             loadMessages()
           }else{
             updateTextBlock.innerText = "更新成功"
             updateWelcomeName(updateNameInput.value)
             updateNameInput.value = ""
             messageAmount = 0
+            deleteOldMessages()
             loadMessages()
           }
           
@@ -178,7 +188,7 @@ loadMessageBtn.addEventListener("click", (e)=>{
       message = messages.messages[i]
       createMessage(id, message )
       messageAmount += 1
-      console.log(messageAmount)
+      // console.log(messageAmount)
     }
   }else{
       for (let i = starNum ; i < menus + 5; i++){
@@ -186,7 +196,7 @@ loadMessageBtn.addEventListener("click", (e)=>{
       message = messages.messages[i]
       createMessage(id, message )
       messageAmount += 1
-      console.log(messageAmount)
+      // console.log(messageAmount)
     }
   }
 
